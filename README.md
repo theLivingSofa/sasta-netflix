@@ -21,7 +21,8 @@ To run this project locally:
    ```bash
    git clone https://github.com/theLivingSofa/sasta-netflix.git
    cd sasta-netflix
-
+   ```
+   
 ## 🙏 Acknowledgements
 - Made with ❤️ by theLivingSofa.
 - Please keep this site private and personal as intended.
