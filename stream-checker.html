@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Google Drive Stream Checker & Link Converter</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #0e0e0e;
+      color: #f4f4f4;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #ff4757;
+    }
+    input {
+      width: 80%;
+      max-width: 600px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 1rem;
+      background: #1f1f1f;
+      color: #fff;
+    }
+    button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      background: #ff4757;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    iframe {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 720px;
+      height: 405px;
+      border: none;
+      border-radius: 10px;
+    }
+    .status, .converted-link {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+    .converted-link input {
+      width: 90%;
+      max-width: 600px;
+      background: #222;
+      color: #0f0;
+      font-family: monospace;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #444;
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎬 Google Drive Stream Checker + Link Converter</h1>
+
+  <input type="text" id="driveUrl" placeholder="Paste Google Drive link here" />
+  <br />
+  <button onclick="checkVideo()">Check & Convert</button>
+
+  <div class="status" id="status"></div>
+
+  <div class="converted-link" id="convertedLink" style="display: none;">
+    📽️ Streaming Link:<br />
+    <input type="text" id="streamLink" readonly />
+    <br />
+    <button onclick="copyLink()">Copy Link</button>
+  </div>
+
+  <iframe id="previewFrame" style="display:none;"></iframe>
+
+  <script>
+    function extractFileId(url) {
+      const match = url.match(/\/d\/([a-zA-Z0-9_-]{20,})/);
+      if (match) return match[1];
+
+      const match2 = url.match(/id=([a-zA-Z0-9_-]{20,})/);
+      return match2 ? match2[1] : null;
+    }
+
+    function checkVideo() {
+      const url = document.getElementById('driveUrl').value.trim();
+      const fileId = extractFileId(url);
+      const statusEl = document.getElementById('status');
+      const frame = document.getElementById('previewFrame');
+      const linkBox = document.getElementById('convertedLink');
+      const streamLinkInput = document.getElementById('streamLink');
+
+      if (!fileId) {
+        statusEl.innerText = "❌ Invalid Google Drive link.";
+        frame.style.display = "none";
+        linkBox.style.display = "none";
+        return;
+      }
+
+      const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+
+      statusEl.innerText = "🔄 Checking video… Scroll down to preview.";
+      frame.src = previewUrl;
+      frame.style.display = "block";
+
+      streamLinkInput.value = previewUrl;
+      linkBox.style.display = "block";
+    }
+
+    function copyLink() {
+      const copyText = document.getElementById("streamLink");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile
+      document.execCommand("copy");
+      alert("✅ Link copied to clipboard!");
+    }
+  </script>
+
+</body>
+</html>

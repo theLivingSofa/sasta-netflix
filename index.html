@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MyFlix - Private Streaming</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      color: #f5f5f5;
+      padding: 2rem;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #ff4757;
+      letter-spacing: 2px;
+    }
+
+    .top-right-link {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    .top-right-link button {
+      background-color: #ff4757;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      color: #ff6b81;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @media (min-width: 768px) {
+      iframe {
+        height: 360px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Redirect Button -->
+  <div class="top-right-link">
+    <button onclick="window.location.href='stream-checker.html'">🔍 Stream Checker</button>
+  </div>
+
+  <h1>🎬 MyFlix: Private Streaming</h1>
+
+  <div class="grid">
+    <!-- Video Card 1 -->
+    <div class="card">
+      <h2>Movie 1: Animal</h2>
+      <iframe src="https://drive.google.com/file/d/1G_FgfHZG7jDnmb-79LirgY6qlxfORxMi/preview" allow="autoplay" allowfullscreen></iframe>
+    </div>
+
+    <!-- Video Card 2 -->
+    <div class="card">
+      <h2>Movie 2: Rockstar</h2>
+      <iframe src="https://drive.google.com/file/d/1Wp52tc4GuW8EXSwqFMz5tnmzmbswZxRT/preview" allow="autoplay" allowfullscreen></iframe>
+    </div>
+
+    <!-- Video Card 2 -->
+    <div class="card">
+      <h2>Movie 3: Malaal</h2>
+      <iframe src="https://drive.google.com/file/d/1L8R12NIaujrxs03DHlsy4E3nMOq5-z60/preview" allow="autoplay" allowfullscreen></iframe>
+    </div>
+
+    <!-- Video Card 2 -->
+    <div class="card">
+      <h2>Movie 2: Rockstar</h2>
+      <iframe src="https://drive.google.com/file/d/1Wp52tc4GuW8EXSwqFMz5tnmzmbswZxRT/preview" allow="autoplay" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  
+  <footer>
+    Built with 💻 by theLivingSofa | Keep this link private.
+  </footer>
+
+</body>
+</html>
