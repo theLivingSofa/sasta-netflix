@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - MyFlix</title>
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
@@ -15,9 +14,14 @@
       font-family: 'Segoe UI', sans-serif;
       background: radial-gradient(circle at top, #1e1e1e, #0d0d0d);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: center; /* Keep content centered vertically */
       align-items: center;
       color: #ffffff;
+      position: relative;
+      padding-bottom: 4rem;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .login-box {
@@ -29,6 +33,7 @@
       max-width: 400px;
       text-align: center;
       transition: all 0.3s ease;
+      margin: 0 auto; /* Center the login box horizontally */
     }
 
     .login-box:hover {
@@ -41,7 +46,7 @@
       color: #ff4757;
     }
 
-    .input-field, .login-btn, .signup-btn, .google-btn {
+    .input-field, .login-btn {
       width: 100%;
       max-width: 320px;
       padding: 0.75rem;
@@ -49,11 +54,11 @@
       border-radius: 10px;
       font-size: 1rem;
       display: block;
+      border: none;
     }
 
     .input-field {
       background-color: #2c2c2c;
-      border: none;
       color: #f1f1f1;
     }
 
@@ -65,7 +70,6 @@
     .login-btn {
       background-color: #ff4757;
       color: white;
-      border: none;
       cursor: pointer;
     }
 
@@ -73,26 +77,32 @@
       background-color: #e84153;
     }
 
-    .signup-btn {
-      background-color: #ff6b81;
-      color: white;
-      border: none;
-      cursor: pointer;
+    .signup-link {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #ddd;
     }
 
-    .signup-btn:hover {
-      background-color: #ff4d61;
+    .signup-link a {
+      color: #ff6b81;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .google-btn {
-      background-color: #4285f4;
-      color: white;
-      border: none;
-      cursor: pointer;
+    .signup-link a:hover {
+      text-decoration: underline;
     }
 
-    .google-btn:hover {
-      background-color: #3367d6;
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #141414;
     }
   </style>
 </head>
@@ -103,9 +113,14 @@
     <input type="email" id="email" class="input-field" placeholder="Email">
     <input type="password" id="password" class="input-field" placeholder="Password">
     <button class="login-btn" onclick="login()">Login</button>
-    <button class="signup-btn" onclick="signup()">Sign Up</button>
-    <button class="google-btn" onclick="googleLogin()">Sign in with Google</button>
+    <p class="signup-link">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </p>
   </div>
+
+  <footer>
+    Built with ❤️ by theLivingSofa | Keep this link private.
+  </footer>
 
   <script>
     // Firebase config
@@ -134,14 +149,6 @@
       auth.createUserWithEmailAndPassword(email, password)
         .then(() => alert("Sign Up Successful. You can log in now."))
         .catch(err => alert("Sign Up Error: " + err.message));
-    }
-
-    // Google login
-    function googleLogin() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .then(() => window.location.href = "index.html")
-        .catch(err => alert("Google Login Error: " + err.message));
     }
   </script>
 
