@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - MyFlix</title>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #1e1e1e, #0d0d0d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+    }
+
+    .login-box {
+      background-color: #141414;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(255, 71, 87, 0.2);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .login-box:hover {
+      box-shadow: 0 0 35px rgba(255, 71, 87, 0.4);
+    }
+
+    .login-box h2 {
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      color: #ff4757;
+    }
+
+    .input-field, .login-btn, .signup-btn, .google-btn {
+      width: 100%;
+      max-width: 320px;
+      padding: 0.75rem;
+      margin: 0.5rem auto;
+      border-radius: 10px;
+      font-size: 1rem;
+      display: block;
+    }
+
+    .input-field {
+      background-color: #2c2c2c;
+      border: none;
+      color: #f1f1f1;
+    }
+
+    .input-field:focus {
+      outline: none;
+      background-color: #3b3b3b;
+    }
+
+    .login-btn {
+      background-color: #ff4757;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      background-color: #e84153;
+    }
+
+    .signup-btn {
+      background-color: #ff6b81;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .signup-btn:hover {
+      background-color: #ff4d61;
+    }
+
+    .google-btn {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .google-btn:hover {
+      background-color: #3367d6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Login to MyFlix</h2>
+    <input type="email" id="email" class="input-field" placeholder="Email">
+    <input type="password" id="password" class="input-field" placeholder="Password">
+    <button class="login-btn" onclick="login()">Login</button>
+    <button class="signup-btn" onclick="signup()">Sign Up</button>
+    <button class="google-btn" onclick="googleLogin()">Sign in with Google</button>
+  </div>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBrChvVIYHU8pP7BeDZlEW8SLhpkTaQAaQ",
+      authDomain: "myflix-9e38a.firebaseapp.com",
+      projectId: "myflix-9e38a",
+      appId: "1:164149311168:web:763ba10160d94fc282df25"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Login
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => window.location.href = "index.html")
+        .catch(err => alert("Login Error: " + err.message));
+    }
+
+    // Signup
+    function signup() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert("Sign Up Successful. You can log in now."))
+        .catch(err => alert("Sign Up Error: " + err.message));
+    }
+
+    // Google login
+    function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(() => window.location.href = "index.html")
+        .catch(err => alert("Google Login Error: " + err.message));
+    }
+  </script>
+
+</body>
+</html>

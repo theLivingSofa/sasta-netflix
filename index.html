@@ -1,10 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+  
+  <script>
+    // ✅ Firebase Config & Redirect Logic
+    const firebaseConfig = {
+      apiKey: "AIzaSyBrChvVIYHU8pP7BeDZlEW8SLhpkTaQAaQ",
+      authDomain: "myflix-9e38a.firebaseapp.com",
+      projectId: "myflix-9e38a",
+      appId: "1:164149311168:web:763ba10160d94fc282df25"
+    };
+  
+    firebase.initializeApp(firebaseConfig);
+  
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html"; // Redirect if not logged in
+      }
+    });
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MyFlix - Private Streaming</title>
   <style>
+    /* --- Your Styles Stay Unchanged --- */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
@@ -26,6 +48,9 @@
       position: absolute;
       top: 20px;
       right: 30px;
+      display: flex; /* Use flexbox to arrange items horizontally */
+      gap: 1rem; /* Add some space between the buttons */
+      align-items: center; /* Vertically align items if needed */
     }
 
     .top-right-link button {
@@ -86,40 +111,46 @@
 </head>
 <body>
 
-  <!-- Redirect Button -->
   <div class="top-right-link">
+    <button id="logoutBtn" style="padding: 0.5rem 1rem; background-color: #ff4757; color: white; border: none; border-radius: 6px; cursor: pointer;">
+      Logout
+    </button>
+    <script>
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+        firebase.auth().signOut().then(() => {
+          window.location.href = "login.html"; // Redirect to login page
+        }).catch((error) => {
+          console.error("Error signing out: ", error);
+        });
+      });
+    </script>    
     <button onclick="window.location.href='stream-checker.html'">🔍 Stream Checker</button>
   </div>
 
   <h1>🎬 MyFlix: Private Streaming</h1>
 
   <div class="grid">
-    <!-- Video Card 1 -->
     <div class="card">
       <h2>Movie 1: Animal</h2>
       <iframe src="https://drive.google.com/file/d/1G_FgfHZG7jDnmb-79LirgY6qlxfORxMi/preview" allow="autoplay" allowfullscreen></iframe>
     </div>
 
-    <!-- Video Card 2 -->
     <div class="card">
       <h2>Movie 2: Rockstar</h2>
       <iframe src="https://drive.google.com/file/d/1Wp52tc4GuW8EXSwqFMz5tnmzmbswZxRT/preview" allow="autoplay" allowfullscreen></iframe>
     </div>
 
-    <!-- Video Card 3 -->
     <div class="card">
       <h2>Movie 3: Malaal</h2>
       <iframe src="https://drive.google.com/file/d/1L8R12NIaujrxs03DHlsy4E3nMOq5-z60/preview" allow="autoplay" allowfullscreen></iframe>
     </div>
 
-    <!-- Video Card 4 -->
     <div class="card">
       <h2>Movie 4: Jewel Thief</h2>
       <iframe src="https://drive.google.com/file/d/1Ey3CiBxR6SSjMET6p-oFuY2mYgUZ95ca/preview" allow="autoplay" allowfullscreen></iframe>
     </div>
   </div>
 
-  
   <footer>
     Built with ❤️ by theLivingSofa | Keep this link private.
   </footer>
